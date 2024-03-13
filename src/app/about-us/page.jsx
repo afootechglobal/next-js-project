@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import RootLayout from "@/app/layout";
 import AboutUpPage from "./aboutus";
 import FullPageLoading from "@/components/site/icons";
+import Footer from "@/components/site/footer";
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -21,7 +22,7 @@ export default function AboutUs() {
     setPageLoading(true);
     const delayTimer = setTimeout(() => {
       setPageLoading(false);
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(delayTimer);
   };
   useEffect(() => {
@@ -34,7 +35,8 @@ export default function AboutUs() {
        <FullPageLoading/>
      ) : (
       <RootLayout metas={metas}>
-          <AboutUpPage realTimePageReloader={realTimePageReloader}/>
+          <AboutUpPage />
+          <Footer/>
       </RootLayout>
      )}
    </>

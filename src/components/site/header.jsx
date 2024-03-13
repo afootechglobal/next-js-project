@@ -6,17 +6,17 @@ export default function Header() {
 
   return (
     <>
-    <header className="w-[100%] h-[110px] bg-white px-[7%] flex flex-col animate-[slide-down-fade_1s_ease-in-out]">
-    <div className="w-[100%] h-[90px] flex justify-between items-center">
+    <header className="w-[100%] h-[120px] bg-white px-[7%] flex flex-col z-[300] shadow-[_0px_3px_12px_rgba(0,0,0,0.1)] fixed animate-[slide-down-fade_1s_ease-in-out]">
+    <div className="w-[100%] h-[90px] mt-[10px] max-w-[1200px] m-auto flex justify-between items-center">
       <div className="w-[200px]">
         <Image
           src="/images/logo.png"
           width={200} 
-          height={100}  
-          alt="Loading.."
+          height={70}  
+          alt="Loading..."
         />
       </div>
-      <div className="flex gap-3 justify-between">
+      <div className="flex justify-between gap-3">
         <HeaderContact 
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FF5100" class="w-5 h-5">
@@ -49,41 +49,45 @@ export default function Header() {
         
       </div>
     </div>
+    
 
-    </header>
-
-    <nav className="w-[86%] bg-[#578caf] m-auto mt-[-25px] rounded-[3px] px-[20px] flex justify-between items-center animate-[slide-down-fade_2s_ease-in-out]">
-      <ul className="flex gap-2 h-[50px] justify-between items-center">
-        <NavLink url="/" text="HOME PAGE" title="HOME PAGE" />
-        <NavLink url="/about-us" text="ABOUT US" title="ABOUT US" />
-        <NavLink url="/" text="OUR SERVICES" />
-        <NavLink url="/" text="SOLUTIONS" />
-        <NavLink url="/" text="FAQs" />
-        <NavLink url="/" text="CONTACT US" />
+    <nav className="w-[100%] bg-[#578caf] max-w-[1200px] m-auto mt-[10px] rounded-[3px] px-[20px] flex justify-between items-center">
+      <ul className="flex h-[50px] justify-between gap-3 items-center">
+        <NavLink url="/" text="HOME PAGE" />
+        <NavLink url="/about-us" text="ABOUT US" />
+        <NavLink url="/services" text="OUR SERVICES" />
+        <NavLink url="/solutions" text="SOLUTIONS" />
+        <NavLink url="/faq" text="FAQs" />
+        <NavLink url="/contact-us" text="CONTACT US" />
       </ul>
-      <button className=" bg-[#FF5100] h-[40px] px-3 rounded-[3px] text-white text-[14px]" style={{ fontFamily: 'sub-title-font' }}>GET IN TOUCH</button>
+      <button className="bg-[#FF5100] h-[40px] px-3 rounded-[3px] text-white text-[14px] hover:text-[#fff] hover:bg-[#444444] transition ease-in-out delay-150" style={{ fontFamily: 'sub-title-font' }}>GET IN TOUCH</button>
     </nav>
+    </header>
     </>
   );
 }
 
+
+
 export function HeaderContact({icon, title, text}) {
   return (
     <div className="flex flex-col gap-0 text-[13px] px-4">
-          <h3 className="text-[14px] flex gap-1 text-[#006EBB]">
-            {icon}
-            <span>{title}</span>
-          </h3>
-          <p>{text}</p>
-      </div>
+      <h3 className="text-[14px] flex gap-1 text-[#006EBB]">
+        {icon}
+        <span>{title}</span>
+      </h3>
+      <p>{text}</p>
+    </div>
   );
 }
 
-export function NavLink({url, text, title}) {
+
+
+export function NavLink({url, text}) {
   return (
-    <Link 
-      href={url}
-      className="h-[40px] px-3 text-[14px] flex items-center hover:bg-white/50 rounded-[3px] cursor-pointer text-white transition ease-in-out delay-150" title={title}>
+    <Link href={url}
+       className="h-[40px] px-3 text-[14px] flex items-center hover:bg-white/50 hover:text-[#FF5100] rounded-[3px] cursor-pointer text-white transition ease-in-out delay-150"
+       >
       {text}
     </Link>
   );

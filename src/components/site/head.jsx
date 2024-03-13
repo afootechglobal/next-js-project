@@ -1,5 +1,6 @@
 "use client";
 import { appName } from "@/modules/constants";
+
 export default function DefaultHead({metas}) {
 
   return (

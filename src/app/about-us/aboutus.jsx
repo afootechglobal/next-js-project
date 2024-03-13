@@ -1,204 +1,89 @@
 "use client";
-import { useState, useEffect } from 'react';
-//import axios from 'axios';
+// import { useState, useEffect } from "react";
+import Image from "next/image";
+// import Link from "next/link";
+import { PageButton } from "@/components/site/websiteBody";
+import { FaqItem } from "@/components/site/websiteBody";
+import { Paragraph } from "@/components/site/websiteBody";
+import {OtherPagesTitle} from "@/components/site/websiteBody";
+////////////////////////////////////////////////////////////
 
-
-
-export default function login({ realTimePageReloader }) {
-  const [loginData, setLoginData] = useState({
-    fullname: "",
-    email: "",
-    phone: "",
-    address: "",
-    status_id: "",
-    password: "",
-  });
-
-
-  const handleLogin = async () => {
-
-    // const formData = new FormData();
-    // formData.append('fullname', loginData.fullname);
-    // formData.append('email', loginData.email);
-    // formData.append('phone', loginData.phone);
-    // formData.append('address', loginData.address);
-    // formData.append('status_id', loginData.status_id);
-    // formData.append('password', loginData.password);
-
-    try {
-
-    ///  const postResponse = await axios.post('/api/login', loginData);
-
-      // const postResponse = await fetch('/api/register', {
-      //   method: 'POST',
-      //   body: formData,
-      // });
-      const postResponse = await fetch('/api/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(loginData),
-      });
-     
-        const getData = await postResponse.json();
-        // const getData = postResponse.data;
-        const success = getData.success;
-        const message1 = getData.message1;
-        const message2 = getData.message2;
-
-      if (success==true) {
-          alert(message1 +' '+ message2);
-      } else {
-        alert(message1 +' '+ message2);
-      }
-    } catch (error) {
-      console.error('Login failed', error);
-      // setError('An unexpected error occurred');
-    }
-  };
-
-
-  return (
-    <>
-      <h1>Login</h1>
-      <div>
-        <label>fullname:</label>
-        <input
-          type="text"
-          value={loginData.fullname}
-          onChange={(e) => setLoginData({ ...loginData, fullname: e.target.value })}
+export default function AboutUpPage() {
+   
+    return (
+      <>
+        <OtherPagesTitle
+          title="About Us"
+          ul="About Us"
         />
-      </div>
-      <br />
-      <br />
-      <div>
-        <label>email:</label>
-        <input
-          type="email"
-          value={loginData.email}
-          onChange={(e) => setLoginData({ ...loginData, email: e.target.value})}
-        />
-      </div>
-      <br />
-      <br />
+    
+        <div className="w-[100%] relative top-[100%]">
+          <div className="w-[100%] m-h-[300px] py-8 px-0">
+            <div className="w-[86%] max-w-[1200px] m-auto flex flex-col gap-0">
+              <div className="w-[100%] flex flex-col gap-0 items-center">
 
-      <div>
-        <label>phone:</label>
-        <input
-          type="tel"
-          value={loginData.phone}
-          onChange={(e) => setLoginData({ ...loginData, phone: e.target.value})}
-        />
-      </div>
-      <br />
-      <br />
+                <div className="w-[100%] mt-[20px] flex flex-wrap justify-between items-start">
+                  <div className="w-[50%] min-h-[400px] flex flex-col gap-4 justify-between items-end">
+                   <Paragraph
+                      text="Since the year 2005, Leaders Network has been delivering trusted technology solutions for Corporate Bodies, Government, Telecommunication, Educational, Insurance and Financial Services all over the world. "
+                   />
+                   
+                   <Paragraph
+                      text="In view of the global village nature of the world, we also collaborate together on several projects with various organisations and consultants as partners in a team thereby increasing the knowledge base of team members and enhancing capacities. We always seek for the most experienced organization on a particular project and collaborate to give our customers the full benefit. We continue to innovate and improve the product experience for all our customers"
+                   />
+
+                    <Paragraph
+                      text="Leaders Network Ltd is a firm of Management and Information Technology Consultants providing services on Document Management, Resource As A Service (RAAS), Software Development, Social Media Campaigns, Management Training and Smartcard Solutions."
+                   />
+
+                    <Paragraph
+                      text="Our goal is to assist corporate bodies, states and organizations to motivate and inspire their employees to peak performance as evidence has shown this to be the key drive for successful corporate performance."
+                   />
+
+                    <Paragraph
+                      text="Our consulting methodology is driven by world-class tools sourced from our international partner firms in the USA, India, United Kingdom and South Africa. This partnership provides us with excellent training, development and consultancy support."
+                   />
+                    
+                   
+                    <PageButton
+                      text="GET IN TOUCH"
+                    />
+                  </div> 
+
+                  <div className="w-[48%] h-[500px] relative">
+                    <Image
+                      src="/images/about-leaders-network.png"
+                      className="w-full h-full"
+                      objectFit="cover"
+                      layout="fill"                      
+                      alt="about-leaders-network"
+                    />
+                  </div>
+                </div>        
+              </div>
+            </div> 
+          </div> 
+
+          <div className="w-[100%] min-h-[300px] mt-14 bg-[url('/images/faq-bg.jpg')] bg-fixed bg-cover bg-center bg-no-repeat">
+            <div className="w-[86%] max-w-[1200px] m-auto flex flex-col gap-0">
+              <div className="w-[55%] min-h-[530px] flex flex-col items-start gap-6 bg-white bg-opacity-70 pt-[45px] pb-[30px] px-5">
+    
+                <FaqItem 
+                  title="Our Vision Statement"
+                />
+
+                <FaqItem 
+                  title="Our Mission Statement"
+                />
+                
+              </div>
+            </div> 
+          </div>
+        </div>
+      </>
+    );
+  }
 
 
-      <div>
-        <label>address:</label>
-        <input
-          type="text"
-          value={loginData.address}
-          onChange={(e) => setLoginData({ ...loginData, address: e.target.value})}
-        />
-      </div>
-      <br />
-      <br />
-
-
-      <div>
-        <label>status:</label>
-        <input
-          type="text"
-          value={loginData.status_id}
-          onChange={(e) => setLoginData({ ...loginData, status_id: e.target.value})}
-        />
-      </div>
-      <br />
-      <br />
-
-
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={loginData.password}
-          onChange={(e) => setLoginData({ ...loginData, password: e.target.value})}
-        />
-      </div>
-      <br />
-      <br />
-
-      <button onClick={handleLogin}>Register</button>
-
-      {/* <span onClick={() => realTimePageReloader()}>About Us</span> */}
-    </>
-  );
-}
-
-
-
-    // return (
-    //   <>
-    //     <span onClick={()=>realTimePageReloader()}>About Us</span>
-    //   </>
-    // );
+ 
   
-  
-
-
-
-
-// const Login = () => {
-//   const router = useRouter();
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-
-//   const handleLogin = async () => {
-//     // Implement your authentication logic here
-//     // For example, you can use fetch to send login details to your backend API
-//     try {
-//       const response = await fetch('/api/login', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ email, password }),
-//       });
-
-//       if (response.ok) {
-//         router.push('/dashboard'); // Redirect to dashboard on successful login
-//       } else {
-//         // Handle login error
-//         console.error('Login failed');
-//       }
-//     } catch (error) {
-//       console.error('Login failed', error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h1>Login</h1>
-//       <div>
-//         <label>Email:</label>
-//         <input
-//           type="email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//         />
-//       </div>
-//       <div>
-//         <label>Password:</label>
-//         <input
-//           type="password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//         />
-//       </div>
-//       <button onClick={handleLogin}>Login</button>
-//     </div>
-//   );
-// };
-

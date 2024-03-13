@@ -30,7 +30,9 @@
   font-size: 15px;
 }
 body {
-  background:#ccc;
+  height: 100%;
+  margin: 0;
+  background:#fff;
   font-family:body-font;
 }
 h1, h2{
@@ -39,7 +41,6 @@ h1, h2{
 h3, h4, h5, h6{
 	font-family:sub-title-font;
 }
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
