@@ -1,26 +1,96 @@
 "use client";
-import React from "react";
+import { useState } from "react";
+// import Link from "next/link";
+import ShowAlert from './alert';
 import Image from "next/image";
-
 import './style/animate.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faCheckCircle, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 
-import { ShowAlert } from './alert';
-import { UserLogIn, ProceedResetPassword } from './function';
-import SignUpPage from './signup';
-import ResetPasswordPage from './resetpassword';
+import SignUp from './signup';
 
 ////////////////////////////////////////////////////////////
 
-export default function LogInPage() {
 
-  const {showAlert, alertClose, isLoginFormVisible, toggleForms, isLoading, signUpPopUp, setSignUpPopUp,
-    openSignUp, loginData, setLoginData, handleLogin } = UserLogIn();
 
-  const { resetPassShowAlert, resetPassAlertClose, resetPassIsLoading, resetPassPopUp, setResetPassPopUp,
-     resetPassData, setResetPassData,userResetPassDetail, handleResetPassword } = ProceedResetPassword();
+
+export default function LoginUpPage() {
+  const [showAlert, setShowAlert] = useState(false);
+
+  ///// toggleForm useSate paramenters
+  const [isLoginFormVisible, setIsLoginFormVisible] = useState(true);
+  const toggleForms = () => {
+    setIsLoginFormVisible(!isLoginFormVisible);
+  };
+
+  const [signUpPopUp, setSignUpPopUp] = useState(false);
+
+  const openSignUp = () => {
+    setSignUpPopUp(true);
+  };
+
+  const alertClose = () => {
+    setShowAlert(false);
+  };
+
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const formData = new FormData();
+
+  // Append fields and values
+  formData.append('email', loginData.email);
+  formData.append('password', loginData.password);
+
+  // const fileInput = document.querySelector('input[type="file"]');
+  // formData.append('file', fileInput.files[0]);
+
+  
+  const handleLogin = async () => {
+    try {
+      const getResponse = await fetch('/api/login', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      const getData = await getResponse.json();
+      const success = getData.success;
+      const message1 = getData.message1;
+      if (success == true) {
+        setShowAlert(getData);
+      } else {
+        setShowAlert(getData);
+      }
+    } catch (error) {
+      console.error('Login failed', error);
+    }
+  };
+
+
+  // const handleLogin = async () => {
+  //   try {
+  //     const getResponse = await fetch('/api/login', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(loginData),
+  //     });
+
+  //     const getData = await getResponse.json();
+  //     const success = getData.success;
+  //     const message1 = getData.message1;
+  //     if (success == true) {
+  //       alert(message1);
+  //     } else {
+  //       alert(message1);
+
+  //     }
+  //   } catch (error) {
+  //     console.error('Login failed', error);
+  //   }
+  // };
 
   return (
     <>
@@ -71,10 +141,9 @@ export default function LogInPage() {
 
                 <button
                   className="text-[14px] mt-3 w-full min-w-[200px] bg-[#006EBB] h-[43px] px-3 rounded-[3px] text-white hover:text-[#fff] hover:bg-[#444444] transition ease-in-out delay-150"
-                  style={{ fontFamily: "sub-title-font" }} onClick={handleLogin} disabled={isLoading}>
-
-                  {isLoading ? (<> <FontAwesomeIcon icon={faSpinner} spin /> Authenticating </>
-                  ) : <> <FontAwesomeIcon icon={faCheckCircle} /> Log In </>}
+                  style={{ fontFamily: "sub-title-font" }} onClick={handleLogin}>
+                  <i className="bi bi-check"></i>
+                  LOG-IN
                 </button>
 
                 <div className="w-full mt-3 p-[10px] items-center text-[13px] border border-[#e0e0e0] rounded-[3px]">
@@ -96,15 +165,13 @@ export default function LogInPage() {
                 <input
                   className="flex w-[100%] p-[13px] text-[13px] border rounded-[5px] outline-none"
                   placeholder="Enter Your Email Address" title="Enter Your Email Address"
-                  value={resetPassData.email}
-                  onChange={(e) => setResetPassData({ ...resetPassData, email: e.target.value })}
                 />
+
 
                 <button
                   className="text-[14px] mt-3 w-full min-w-[200px] bg-[#006EBB] h-[43px] px-3 rounded-[3px] text-white hover:text-[#fff] hover:bg-[#444444] transition ease-in-out delay-150"
-                  style={{ fontFamily: "sub-title-font" }} onClick={handleResetPassword}>
-                  {resetPassIsLoading ? (<> <FontAwesomeIcon icon={faSpinner} spin /> Proceeding </>
-                  ) : <>  Proceed <FontAwesomeIcon icon={faArrowCircleRight} /></>}
+                  style={{ fontFamily: "sub-title-font" }}>
+                  PROCEED <i className="bi-arrow-right"></i>
                 </button>
 
                 <div className="w-full mt-3 p-[10px] items-center text-[13px] border border-[#e0e0e0] rounded-[3px]">
@@ -118,22 +185,10 @@ export default function LogInPage() {
           </div>
         </div>
       </div>
-      {/* ------ load Reset Password page */}
-      {resetPassPopUp && <ResetPasswordPage getDetail={userResetPassDetail} viewLogin={toggleForms} closeForm={() => setResetPassPopUp(false)} />}
-      {/* ------ load Sign Up page */}
-      {signUpPopUp && <SignUpPage closeForm={() => setSignUpPopUp(false)} />}
 
-      {/* ------ load Reset Password alert */}
-      {resetPassShowAlert &&
-        <ShowAlert
-          message={resetPassShowAlert.message1}
-          additionalMessage={resetPassShowAlert.message2}
-          alertSuccess={resetPassShowAlert.success}
-          onClose={resetPassAlertClose}
-        />
-      }
-      {/* ------ load main alert */}
-      {showAlert &&
+      {signUpPopUp && <SignUp closeSignUp={() => setSignUpPopUp(false)} />}
+
+      {showAlert && 
         <ShowAlert
           message={showAlert.message1}
           additionalMessage={showAlert.message2}
@@ -142,7 +197,6 @@ export default function LogInPage() {
         />
       }
 
-      
     </>
   );
 }

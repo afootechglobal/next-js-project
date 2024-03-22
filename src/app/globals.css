@@ -16,33 +16,80 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+
 @font-face {
-  font-family:title-font;
+  font-family: title-font;
   src: url(../styles/Poppins/Poppins-Bold.ttf);
 }
+
 @font-face {
-  font-family:sub-title-font;
+  font-family: sub-title-font;
   src: url(../styles/Poppins/Poppins-Medium.ttf);
 }
+
 @font-face {
-  font-family:body-font;
+  font-family: body-font;
   src: url(../styles/Poppins/Poppins-Regular.ttf);
   font-size: 15px;
 }
+
 body {
   height: 100%;
   margin: 0;
-  background:#fff;
-  font-family:body-font;
+  background: #fff;
+  font-family: body-font;
 }
-h1, h2{
-	font-family:title-font;
+
+h1,
+h2 {
+  font-family: title-font;
 }
-h3, h4, h5, h6{
-	font-family:sub-title-font;
+
+h3,
+h4,
+h5,
+h6 {
+  font-family: sub-title-font;
 }
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+#success-div {
+  background: rgba(0, 202, 101, 1);
+}
+
+#success-div .icon {
+  color: rgba(0, 202, 101, 1);
+}
+
+#not-success-div {
+  background: rgba(255, 0, 0, 1);
+}
+
+#not-success-div .icon {
+  color: rgba(255, 0, 0, 1);
+}
+
+#warning-div {
+  background: rgba(255, 128, 0, 1);
+}
+
+#warning-div .icon {
+  color: rgba(255, 128, 0, 1);
+}
+
+#success-div span,
+#warning-div span {
+  font-size: 12px;
+}
+
+.complain {
+  border-color: rgba(255, 128, 0, 1);
+  -moz-appearance: none;
+  -moz-transform: scale(1) translate(1px, 0px);
+  -webkit-transform: scale(1) translate(1px, 0px);
 }

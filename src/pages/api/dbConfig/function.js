@@ -2,6 +2,13 @@
 import bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto'
 
+// Assuming you have a function to convert the string
+export function convertToTitleCase(str) {
+    return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
+      return match.toUpperCase();
+    });
+}
+
 export function isNumeric(num) {
     const numericPattern = /^[0-9]+$/;
     return numericPattern.test(num);

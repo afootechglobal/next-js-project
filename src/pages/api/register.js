@@ -23,12 +23,11 @@ export default async function getSignUpRequest(req, res) {
         
         config.api.bodyParser = true; 
         // Handle JSON request
-        const { fullname, email, phone, address, password, status_id } = req.body;
+        const { fullname, email, phone, address, password } = req.body;
 
-        await userSignUp(fullname, email, phone, address, password, status_id, res);
+        await userSignUp(fullname, email, phone, address, password, res);
 
       } else if (contentType.startsWith('multipart/form-data')) {
-        connection.release();
         config.api.bodyParser = false;
 
         // Handle form data
@@ -43,9 +42,8 @@ export default async function getSignUpRequest(req, res) {
           const phone = fields.phone[0];
           const address = fields.address[0];
           const password = fields.password[0]; 
-          const status_id = fields.status_id[0];
 
-          await userSignUp(fullname, email, phone, address, password, status_id,res);
+          await userSignUp(fullname, email, phone, address, password,res);
         });
 
       } else {
@@ -69,14 +67,14 @@ export default async function getSignUpRequest(req, res) {
 
 
 
-async function userSignUp(fullname, email, phone, address, password, status_id, res) {
+async function userSignUp(fullname, email, phone, address, password, res) {
       const connection = await dbConnection.getConnection();
 
       try {
         connection.release();
 
         // Check if all data is empty
-        if (fullname.trim() === '' || email.trim() === '' || phone.trim() === '' || address.trim() === '' || password === '' || status_id === '') {
+        if (fullname.trim() === '' || email.trim() === '' || phone.trim() === '' || address.trim() === '' || password === '') {
 
           return res.status(400).json({
             success: false,
@@ -129,7 +127,7 @@ async function userSignUp(fullname, email, phone, address, password, status_id, 
 
                   await connection.query(
                     'INSERT INTO user_tab (user_id, fullname, email, phone, address, status_id, password, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                    [userId, fullname.toUpperCase(), email, phone, address.toUpperCase(), status_id[0], hashedPassword, new Date()]
+                    [userId, fullname.toUpperCase(), email, phone, address.toUpperCase(), 1, hashedPassword, new Date()]
                   );
 
                   res.status(201).json({

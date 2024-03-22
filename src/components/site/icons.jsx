@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function FullPageLoadingIcon() {
   return (
-    <div className=" h-[100%] w-[100%] fixed flex z-[1000]  justify-center bg-[#FFF] items-center top-0">
+    <div className="h-[100%] w-[100%] fixed flex z-[1000] justify-center bg-[#FFF] items-center top-0">
         <div className="w-[200px] h-[50px] bg-slate-400">
         <Image
             src="/images/loader.gif"
@@ -24,3 +24,11 @@ export function InnerLoading() {
     </div>
   );
 }
+
+
+
+// export function IconDetail(iconClass, iconStyle) {
+//   return (
+//    <i className={iconClass} style={iconStyle}></i>
+//   );
+// }
